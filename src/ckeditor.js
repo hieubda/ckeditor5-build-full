@@ -16,6 +16,7 @@ import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder'
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage'
 import Heading from '@ckeditor/ckeditor5-heading/src/heading'
 import Image from '@ckeditor/ckeditor5-image/src/image'
+import ImageInsert from "@ckeditor/ckeditor5-image/src/imageinsert"
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption'
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle'
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar'
@@ -40,6 +41,7 @@ import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript'
 import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript'
 import Clipboard from '@ckeditor/ckeditor5-clipboard/src/clipboard'
 import Font from '@ckeditor/ckeditor5-font/src/font'
+import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed'
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight'
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline'
 import Mention from '@ckeditor/ckeditor5-mention/src/mention'
@@ -71,6 +73,8 @@ FullEditor.builtinPlugins = [
   EasyImage,
   Heading,
   Image,
+  ImageResize,
+  ImageInsert,
   ImageCaption,
   ImageStyle,
   ImageToolbar,
@@ -95,6 +99,7 @@ FullEditor.builtinPlugins = [
   Font,
   Highlight,
   HorizontalLine,
+  HtmlEmbed,
   Mention,
   PageBreak,
   RemoveFormat,
@@ -114,72 +119,98 @@ FullEditor.builtinPlugins = [
 FullEditor.defaultConfig = {
   toolbar: {
     items: [
-      'removeFormat',
+      'removeformat',
       '|',
       'heading',
-      '|',
-      'fontSize',
-      'fontFamily',
-      'fontColor',
-      'fontBackgroundColor',
       '|',
       'bold',
       'italic',
       'underline',
-      'strikethrough',
-      'code',
       'subscript',
       'superscript',
+      'blockquote',
+      'specialcharacters',
+      '|',
+      'fontfamily',
+      'fontsize',
+      'fontcolor',
+      'fontbackgroundcolor',
+      'highlight',
       '|',
       'bulletedList',
       'numberedList',
+      'todolist',
       '|',
       'alignment',
-      'indent',
       'outdent',
+      'indent',
       '|',
-      'link',
+      'imageInsert',
+      'mediaembed',
       'insertTable',
-      'specialCharacters',
-      'imageUpload',
-      'mediaEmbed',
+      'tabletoolbar',
       '|',
-      'highlight',
-      'blockQuote',
-      'horizontalLine',
-      'pageBreak',
+      'htmlembed',
+      'link',
       '|',
-      'restrictedEditingException',
+      'horizontalline',
+      'pagebreak',
       '|',
+      'findAndReplace',
       'undo',
       'redo'
     ]
   },
-  blockToolbar: [
-    'heading',
-    'fontSize',
-    'fontColor',
-    'fontBackgroundColor',
-    'alignment',
-    '|',
-    'bulletedList',
-    'numberedList',
-    '|',
-    'blockQuote',
-    'imageUpload'
-  ],
-  fontSize: {
-    options: [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28]
+  heading: {
+    options: [
+      { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+      { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+      { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+      { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+      { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+      { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' }
+    ]
   },
   image: {
-    toolbar: [
-      'imageStyle:alignLeft',
-      'imageStyle:full',
-      'imageStyle:alignRight',
-      '|',
-      'imageTextAlternative'
+    styles: [
+      'alignLeft', 'alignCenter', 'alignRight'
     ],
-    styles: ['full', 'side', 'alignLeft', 'alignCenter', 'alignRight']
+    resizeOptions :  [
+      {
+        name :  'resizeImage: original' ,
+        value :  null ,
+        icon :  'original'
+      } ,
+      {
+        name :  'resizeImage: 25' ,
+        value :  '25',
+        icon :  'small'
+      },
+      {
+        name :  'resizeImage: 50' ,
+        value :  '50' ,
+        icon :  'medium'
+      } ,
+      {
+        name :  'resizeImage: 75' ,
+        value :  '75',
+        icon :  'large'
+      }
+    ] ,
+    toolbar: [
+      'imageStyle:full',
+      'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+      '|',
+      'imageTextAlternative',
+      '|',
+      'resizeImage: 25',
+      'resizeImage: 50' ,
+      'resizeImage: 75',
+      'resizeImage: original' ,
+    ]
+  },
+  fontSize: {
+    options: [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28]
   },
   table: {
     contentToolbar: [
