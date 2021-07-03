@@ -1,6 +1,6 @@
 {
-  "name": "ckeditor5-build-full",
-  "version": "2.0.0-beta.0",
+  "name": "@hieubda/ckeditor5-build-full",
+  "version": "2.1.0-beta.0",
   "description": "The customize full features for classic editor build of CKEditor 5 – the best browser-based rich text editor. Thanks for CKEditor.",
   "publishConfig": {
     "access": "public"
@@ -34,7 +34,7 @@
     "real-time",
     "framework"
   ],
-  "author": "TMH-SE",
+  "author": "LMH-TMH-SE",
   "license": "MIT",
   "peerDependencies": {},
   "devDependencies": {
